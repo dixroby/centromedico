@@ -36,7 +36,7 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../Plantilla/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <link rel="stylesheet" href="../Plantilla/plugins/DataTables/datatables.min.css">
-
+  <link rel="stylesheet" href="../Plantilla/plugins/select2/select2.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,6 +48,11 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+<style>
+.swal2-popup{
+  font-size:1.6rem !important;
+}
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -810,6 +815,7 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
 <!-- AdminLTE for demo purposes -->
 <script src="../Plantilla/dist/js/demo.js"></script>
 <script src="../Plantilla/plugins/DataTables/datatables.min.js"></script>
-
+<script src="../Plantilla/plugins/select2/select2.min.js"></script>
+<script src="../Plantilla/plugins/sweetalert2/sweetalert2.js"></script>
 </body>
 </html>
