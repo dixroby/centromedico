@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(isset($_SESSION['S_IDUSUARIO'])){
+	header('Location: ../vista/index.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +39,6 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-				<form class="login100-form validate-form">
 					<span class="login100-form-title p-b-49">
 						INICIAR SESI&Oacute;N
 					</span>
@@ -58,7 +64,7 @@
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
+							<button class="login100-form-btn" onclick="VerificarUsuario()">
 								ENTRAR
 							</button>
 						</div>
@@ -77,7 +83,6 @@
 							<i class="fa fa-google"></i>
 						</a>
 					</div>
-				</form>
 			</div>
 		</div>
 	</div>
@@ -105,6 +110,7 @@
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<script src="../js/usuario.js"></script>
 
 </body>
 <script>
