@@ -85,7 +85,7 @@ function listar_usuario(){
                     if(data=='M'){
                         return "MASCULINO";                   
                     }else{
-                        return "FEMINO";                 
+                        return "FEMENINO";                 
                     }
                 }
            }, 
@@ -98,7 +98,7 @@ function listar_usuario(){
                }
              }
            },  
-           {"defaultContent":"<button style='font-size:13px;' type='button' class='desactivar btn btn-danger'><i class='fa fa-trash'></i></button>&nbsp;<button style='font-size:13px;' type='button' class='activar btn btn-success'><i class='fa fa-check'></i></button>"}
+           {"defaultContent":"<button style='font-size:13px;' type='button' class='editar btn btn-primary'><i class='fa fa-edit'></i></button>&nbsp;<button style='font-size:13px;' type='button' class='desactivar btn btn-danger'><i class='fa fa-trash'></i></button>&nbsp;<button style='font-size:13px;' type='button' class='activar btn btn-success'><i class='fa fa-check'></i></button>"}
        ],
 
        "language":idioma_espanol,
@@ -154,6 +154,19 @@ $('#tabla_usuario').on('click','.desactivar',function(){
       })
 })
 
+$('#tabla_usuario').on('click','.editar',function(){
+    var data = table.row($(this).parents('tr')).data();
+    if(table.row(this).child.isShown()){
+        var data = table.row(this).data();
+    }
+    $("#modal_editar").modal({backdrop:'static',keyboard:false})
+    $("#modal_editar").modal('show');
+    $("#txtidusuario").val(data.usu_id);
+    $("#txtusu_editar").val(data.usu_nombre);
+    $("#cbm_sexo_editar").val(data.usu_sexo).trigger("change");
+    $("#cbm_rol_editar").val(data.rol_id).trigger("change"); 
+})
+
 function Modificar_Estatus(idusuario,estatus){
     var mensaje ="";
     if(estatus=='INACTIVO'){
@@ -186,7 +199,6 @@ function filterGlobal() {
     ).draw();
 }
 
-
 function AbrirModalRegistro(){
     $("#modal_registro").modal({backdrop:'static',keyboard:false})
     $("#modal_registro").modal('show');
@@ -204,8 +216,11 @@ function listar_combo_rol(){
                 cadena+="<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
             }
             $("#cbm_rol").html(cadena);
-        }else{
+            $("#cbm_rol_editar").html(cadena);
+        }else{  
             cadena+="<option value=''>NO SE ENCONTRARON REGISTROS</option>";
+            $("#cbm_rol").html(cadena);
+            $("#cbm_rol_editar").html(cadena);
         }
     })
 }
@@ -251,6 +266,35 @@ function Registrar_Usuario(){
     })
 
 
+}
+
+function Modificar_Usuario(){
+    var idusuario = $("#txtidusuario").val();
+    var sexo = $("#cbm_sexo_editar").val();
+    var rol = $("#cbm_rol_editar").val();
+    if(idusuario.length==0  || sexo.length==0 || rol.length==0){
+        return Swal.fire("Mensaje De Advertencia","Llene los campos vacios","warning");
+    }
+
+    $.ajax({
+        "url":"../controlador/usuario/controlador_usuario_modificar.php",
+        type:'POST',
+        data:{
+            idusuario:idusuario,
+            sexo:sexo,
+            rol:rol
+        }
+    }).done(function(resp){
+        if(resp>0){
+                $("#modal_editar").modal('hide');
+                Swal.fire("Mensaje De Confirmacion","Datos actualizados correctamente.","success")            
+                .then ( ( value ) =>  {
+                    table.ajax.reload();
+                }); 
+        }else{
+            Swal.fire("Mensaje De Error","Lo sentimos, no se pudo completar la actualización","error");
+        }
+    })
 }
 
 function LimpiarRegistro(){
