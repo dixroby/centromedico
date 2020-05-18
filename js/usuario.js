@@ -290,6 +290,7 @@ function Modificar_Usuario(){
                 Swal.fire("Mensaje De Confirmacion","Datos actualizados correctamente.","success")            
                 .then ( ( value ) =>  {
                     table.ajax.reload();
+                    TraerDatosUsuario();
                 }); 
         }else{
             Swal.fire("Mensaje De Error","Lo sentimos, no se pudo completar la actualización","error");
@@ -301,4 +302,85 @@ function LimpiarRegistro(){
     $("#txt_usu").val("");
     $("#txt_con1").val("");
     $("#txt_con2").val("");
+}
+
+function TraerDatosUsuario(){
+    var usuario=$("#usuarioprincipal").val();
+    $.ajax({
+        "url":"../controlador/usuario/controlador_traerdatos_usuario.php",
+        type:'POST',
+        data:{
+            usuario:usuario
+        }
+
+    }).done(function (resp){
+        var data = JSON.parse(resp); 
+        if (data.length>0){
+            $("#txtcontra_bd").val(data[0][2]);
+            if(data[0][3]=="M"){
+                    $("#img_nav").attr("src","../Plantilla/dist/img/doctor.JPG");
+                    $("#img_subnav").attr("src","../Plantilla/dist/img/doctor.jpg");
+                    $("#img_lateral").attr("src","../Plantilla/dist/img/doctor.jpg");
+            }else{
+                $("#img_nav").attr("src","../Plantilla/dist/img/doctora.JPG");
+                $("#img_subnav").attr("src","../Plantilla/dist/img/doctora.jpg");
+                $("#img_lateral").attr("src","../Plantilla/dist/img/doctora.jpg");
+            }
+
+        }
+    })
+}
+
+function AbrirModalEditarContra(){
+    $("#modal_editar_contra").modal({backdrop:'static',keyboard:false})
+    $("#modal_editar_contra").modal('show');
+    $("#modal_editar_contra").on('shown.bs.modal',function(){
+        $("#txtcontraactual_editar").focus();  
+    })
+}
+
+function Editar_Contra(){
+    var idusuario=$("#txtidprincipal").val();
+    var contrabd=$("#txtcontra_bd").val();
+    var contraescrita=$("#txtcontraactual_editar").val();
+    var contranu=$("#txtcontranun_editar").val();
+    var contrare=$("#txtcontrare_editar").val();
+
+    if ( contraescrita.length == 0 || contranu.length == 0 || contrare.length == 0 ) {
+        return Swal.fire("Mensaje de adevertencia","LLena los campos vacios","warning");
+    }
+    if (contranu =! contrare ) {
+        return Swal.fire("Mensaje de adevertencia","La contraseña repetida no coencide","warning");
+    }
+
+    $.ajax({
+        url:'../controlador/usuario/controlador_contra_modificar.php',
+        type:'POST',
+        data:{
+            idusuario:idusuario,
+            contrabd:contrabd,
+            contraescrita:contraescrita,
+            contranu:contranu
+        }
+    }).done(function(resp) {
+       if (resp> 0) {
+           if (resp ==1) {
+                LimpiarEditarContra(); 
+                $("#modal_editar_contra").modal('hide');
+                Swal.fire("Mensaje De Confirmacion","contra\u00f1a actualizada con exito","success")            
+                .then ( ( value ) =>  {
+                    TraerDatosUsuario();
+                }); 
+           }else{
+            Swal.fire("Mensaje de Error", "No se pudo actualizar la contra\u00f1a, la nueva contra\u00f1a ingresada no coencide con la que tenemos en base de datos","error");
+           }
+       } else {
+           Swal.fire("Mensaje de Error", "No se pudo actualizar la contrase\u00f1a","error");
+       } 
+    })
+}
+function LimpiarEditarContra(){
+    $("#txtcontraactual_editar").val("");
+    $("#txtcontra_editar").val("");
+    $("#txtcontrare_editar").val("");
 }

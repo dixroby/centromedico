@@ -7,5 +7,3 @@
     $rol = htmlspecialchars($_POST['rol'],ENT_QUOTES,'UTF-8');
     $consulta = $MU->Modificar_Datos_Usuario($idusuario,$sexo,$rol);
     echo $consulta;
-
-?>

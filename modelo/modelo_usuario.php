@@ -22,6 +22,18 @@
 			}
         }
 
+        function TraerDatos($usuario){
+            $sql = "call SP_VERIFICAR_USUARIO('$usuario')";
+			$arreglo = array();
+			if ($consulta = $this->conexion->conexion->query($sql)) {
+				while ($consulta_VU = mysqli_fetch_array($consulta)) {
+					   $arreglo[] = $consulta_VU;
+				}
+				return $arreglo;
+				$this->conexion->cerrar();
+			}
+        }
+
         function listar_usuario(){
             $sql = "call SP_LISTAR_USUARIO()";
 			$arreglo = array();
@@ -55,7 +67,18 @@
 			}else{
 				return 0;
 			}
-        }
+		}
+		
+		function Modificar_Contra_Usuario( $idusuario, $contranu){
+            $sql = "call SP_MODIFICAR_CONTRA_USUARIO('$idusuario','$contranu')";
+			if ($consulta = $this->conexion->conexion->query($sql)) {
+				return 1;
+				
+			}else{
+				return 0;
+			}
+		}
+		
         function Modificar_Datos_Usuario($idusuario,$sexo,$rol){
             $sql = "call SP_MODIFICAR_DATOS_USUARIO('$idusuario','$sexo','$rol')";
 			if ($consulta = $this->conexion->conexion->query($sql)) {
