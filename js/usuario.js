@@ -83,7 +83,7 @@ function listar_usuario() {
         "bLengthChange": false,
         "searching": { "regex": false },
         "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-        "pageLength": 10,
+        "pageLength": 20,
         "destroy": true,
         "async": false,
         "processing": true,
@@ -94,6 +94,15 @@ function listar_usuario() {
         "columns": [
             { "data": "posicion" },
             { "data": "usu_nombre" },
+            { "data": "usu_email" ,
+                    render: function (data, type, row) {
+                        if (data == "") {
+                            return "sin correo electronico";
+                        } else{
+                            return data;
+                        }
+                    }
+            },
             { "data": "rol_nombre" },
             {
                 "data": "usu_sexo",
@@ -180,6 +189,7 @@ $('#tabla_usuario').on('click', '.editar', function () {
     $("#modal_editar").modal('show');
     $("#txtidusuario").val(data.usu_id);
     $("#txtusu_editar").val(data.usu_nombre);
+    $("#txt_email_editar").val(data.usu_email);
     $("#cbm_sexo_editar").val(data.usu_sexo).trigger("change");
     $("#cbm_rol_editar").val(data.rol_id).trigger("change");
 })
@@ -248,12 +258,18 @@ function Registrar_Usuario() {
     var contra2 = $("#txt_con2").val();
     var sexo = $("#cbm_sexo").val();
     var rol = $("#cbm_rol").val();
+    var email = $("#txt_email").val();
+    var validaremail = $("#validar_email").val();
     if (usu.length == 0 || contra.length == 0 || contra.length == 0 || contra2.length == 0 || sexo.length == 0 || rol.length == 0) {
         return Swal.fire("Mensaje De Advertencia", "Llene los campos vacios", "warning");
     }
 
     if (contra != contra2) {
         return Swal.fire("Mensaje De Advertencia", "Las contraseñas deben coincidir", "warning");
+    }
+
+    if (validaremail=="incorrecto") { 
+        return Swal.fire("Mensaje De Advertencia", "Ingrese un formato valido de Email", "warning");
     }
 
     $.ajax({
@@ -263,7 +279,8 @@ function Registrar_Usuario() {
             usuario: usu,
             contrasena: contra,
             sexo: sexo,
-            rol: rol
+            rol: rol,
+            email:email
         }
     }).done(function (resp) {
         if (resp > 0) {
@@ -289,8 +306,13 @@ function Modificar_Usuario() {
     var idusuario = $("#txtidusuario").val();
     var sexo = $("#cbm_sexo_editar").val();
     var rol = $("#cbm_rol_editar").val();
+    var email = $("#txt_email_editar").val();
+    var validaremail = $("#validar_email_editar").val();
     if (idusuario.length == 0 || sexo.length == 0 || rol.length == 0) {
         return Swal.fire("Mensaje De Advertencia", "Llene los campos vacios", "warning");
+    }
+    if (validaremail=="incorrecto") { 
+        return Swal.fire("Mensaje De Advertencia", "Ingrese un formato valido de Email", "warning");
     }
 
     $.ajax({
@@ -299,7 +321,8 @@ function Modificar_Usuario() {
         data: {
             idusuario: idusuario,
             sexo: sexo,
-            rol: rol
+            rol: rol,
+            email:email
         }
     }).done(function (resp) {
         if (resp > 0) {

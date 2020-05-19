@@ -155,40 +155,12 @@
 </form>
 <script>
     $(document).ready(function() {
-        listar_usuario();
+       
         $('.js-example-basic-single').select2();
-        listar_combo_rol();
+        
         $("#modal_registro").on('shown.bs.modal', function() {
             $("#txt_usu").focus();
         })
-    });
-
-    document.getElementById('txt_email').addEventListener('input', function() {
-        campo = event.target;
-        emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-        if (emailRegex.test(campo.value)) {
-            $(this).css("border","");
-            $("#OkEmail").html("");
-            $("#validar_email").val("correcto");
-        }else{
-            $(this).css("border","1px solid red ");
-            $("#OkEmail").html("Email formato incorrecto");
-            $("#validar_email").val("incorrecto");
-        }
-    });
-    //validacion de editar
-    document.getElementById('txt_email_editar').addEventListener('input', function() {
-        campo = event.target;
-        emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-        if (emailRegex.test(campo.value)) {
-            $(this).css("border","");
-            $("#OkEmail_editar").html("");
-            $("#validar_email_editar").val("correcto");
-        }else{
-            $(this).css("border","1px solid red ");
-            $("#OkEmail_editar").html("Email formato incorrecto");
-            $("#validar_email_editar").val("incorrecto");
-        }
     });
 
 </script>
