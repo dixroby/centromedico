@@ -6,5 +6,3 @@
     $estatus = htmlspecialchars($_POST['estatus'],ENT_QUOTES,'UTF-8');
     $consulta = $MU->Modificar_Estatus_Usuario($idusuario,$estatus);
     echo $consulta;
-
-?>

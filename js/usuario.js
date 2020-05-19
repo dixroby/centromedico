@@ -14,11 +14,26 @@ function VerificarUsuario() {
         }
     }).done(function (resp) {
         if (resp == 0) {
-            Swal.fire("Mensaje De Error", 'Usuario y/o contrase\u00f1a incorrecta', "error");
+            $.ajax({
+                url:'../controlador/usuario/controlador_intento_modificar.php',
+                type:'POST',
+                data:{
+                    usuario:usu
+                }
+            }).done(function (resp) {
+                if (resp==2) {
+                    return Swal.fire("Mensaje De Advertencia", "Usuario y/o contrase\u00f1a incorrecta, Intentos fallidos: " + (parseInt(resp)+1) + " - para poder acceder a su cuenta restablesca la contrase&#241;a ", "warning");
+                }else{
+                    return Swal.fire("Mensaje De Advertencia", "Usuario y/o contrase\u00f1a incorrecta, Intentos fallidos: " + (parseInt(resp)+1) + " ", "warning");
+                }  
+            })
         } else {
             var data = JSON.parse(resp);
             if (data[0][5] === 'INACTIVO') {
                 return Swal.fire("Mensaje De Advertencia", "Lo sentimos el usuario " + usu + " se encuentra suspendido, comuniquese con el administrador", "warning");
+            }
+            if (data[0][7] == 2) {
+                return Swal.fire("Mensaje De Advertencia", "Lo sentimos su cuenta  esta bosqueada, restablesca su contrase\u00f1a", "warning");
             }
             $.ajax({
                 url: '../controlador/usuario/controlador_crear_session.php',
