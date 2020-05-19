@@ -9,7 +9,7 @@ if(isset($_SESSION['S_IDUSUARIO'])){
 <html lang="en">
 
 <head>
-    <title>Login V4</title>
+    <title>Ingreso Al sistema</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -54,13 +54,12 @@ if(isset($_SESSION['S_IDUSUARIO'])){
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
                     <span class="label-input100">Contrase&ntilde;a</span>
-                    <input class="input100" type="password" name="pass" placeholder="Escriba la contrase&ntilde;a"
-                        id="txt_con">
+                    <input class="input100" type="password" name="pass" placeholder="Escriba la contrase&ntilde;a" id="txt_con">
                     <span class="focus-input100" data-symbol="&#xf190;"></span>
                 </div>
 
                 <div class="text-right p-t-8 p-b-31">
-                    <a href="#">
+                    <a href="#" onclick="AbrirModalRestablecer()">
                         Olvidaste la contrase&ntilde;a?
                     </a>
                 </div>
@@ -90,36 +89,37 @@ if(isset($_SESSION['S_IDUSUARIO'])){
             </div>
         </div>
     </div>
+    
 
 
     <div id="dropDownSelect1"></div>
 
+
     <form autocomplete="false" onsubmit="return false">
-        <div class="modal fade" id="modal_restablecer_contra" role="dialog">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><b>Restrablecer contra&ntilde;a</b></h4>
+    <div class="modal fade" id="modal_restablecer_contra" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="text-align:left"><b>Recuperar Contrase&ntilde;a</b></h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" style="background-color: #7775754a;;">
+                    <div class="col-lg-12">
+                        <label for="">Ingrese Email</label>
+                        <input type="text" class="form-control" id="txt_email" placeholder="Ingrese Email"><br>
                     </div>
-                    <div class="modal-body">
-                        <div class="col-lg-12">
-                            <input type="text" id="txtidusuario" hidden>
-                            <label for=""><b>Ingrese el email registrado en el usuario para enviarle su
-                                    contrase&ntilde;a restablecida</b></label>
-                            <input type="text" class="form-control" id="txt_email" placeholder="Ingrese Email"><br>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" onclick="Modificar_Usuario()"><i
-                                class="fa fa-check"><b>&nbsp;Modificar</b></i></button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
-                                class="fa fa-close"><b>&nbsp;Cerrar</b></i></button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="Restablecer_Contra()"><i
+                            class="fa fa-check"><b>&nbsp;Enviar</b></i></button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                            class="fa fa-close"><b>&nbsp;Cerrar</b></i></button>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
+</form>
+
 
     <!--===============================================================================================-->
     <script src="vendor/sweetalert2/sweetalert2.js"></script>
