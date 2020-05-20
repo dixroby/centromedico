@@ -270,6 +270,12 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
+          <a onclick="cargar_contenido('contenido_principal','insumo/vista_insumo_listar.php')">
+            <i class="fa fa-cubes"></i> <span>Insumo</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
         </li>
       </ul>
     </section>

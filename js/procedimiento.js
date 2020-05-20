@@ -128,7 +128,6 @@ function listar_procedimiento() {
     } );
 }
 
-
 $('#tabla_procedimiento').on('click', '.activar', function () {
     var data = table.row($(this).parents('tr')).data();
     if (table.row(this).child.isShown()) {
