@@ -1,7 +1,7 @@
 <?php
-    require '../../modelo/modelo_usuario.php';
-    $MU = new Modelo_Usuario();
-    $consulta = $MU->listar_usuario();
+    require '../../modelo/modelo_procedimiento.php';
+    $MU = new Modelo_Procedimiento();
+    $consulta = $MU->listar_procedimiento();
     if($consulta){
         echo json_encode($consulta);
     }else{
@@ -12,3 +12,5 @@
 		    "aaData": []
 		}';
     }
+
+?>

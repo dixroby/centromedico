@@ -76,9 +76,9 @@ function VerificarUsuario() {
         }
     })
 }
-var table;
-function listar_usuario() {
-    table = $("#tabla_usuario").DataTable({
+
+function listar_procedimiento() {
+        var tableprocedimiento = $("#tabla_procedimiento").DataTable({
         "ordering": false,
         "bLengthChange": false,
         "searching": { "regex": false },
@@ -88,34 +88,16 @@ function listar_usuario() {
         "async": false,
         "processing": true,
         "ajax": {
-            "url": "../controlador/usuario/controlador_usuario_listar.php",
+            "url": "../controlador/procedimiento/controlador_procedimiento_listar.php",
             type: 'POST'
         },
+        "order":[[1,'asc']],
         "columns": [
-            { "data": "posicion" },
-            { "data": "usu_nombre" },
-            { "data": "usu_email" ,
-                    render: function (data, type, row) {
-                        if (data == "") {
-                            return "sin correo electronico";
-                        } else{
-                            return data;
-                        }
-                    }
-            },
-            { "data": "rol_nombre" },
+            { "defaultContent": "" },
+            { "data": "procedimiento_nombre" },
+            { "data": "procedimiento_fecregistro" },
             {
-                "data": "usu_sexo",
-                render: function (data, type, row) {
-                    if (data == 'M') {
-                        return "MASCULINO";
-                    } else {
-                        return "FEMENINO";
-                    }
-                }
-            },
-            {
-                "data": "usu_estatus",
+                "data": "procedimiento_estatus",
                 render: function (data, type, row) {
                     if (data == 'ACTIVO') {
                         return "<span class='label label-success'>" + data + "</span>";
@@ -124,30 +106,28 @@ function listar_usuario() {
                     }
                 }
             },
-            {
-                "data": "usu_estatus",
-                render: function (data, type, row) {
-                    if (data == 'ACTIVO') {
-                        return "<button style='font-size:13px;' type='button' class='editar btn btn-primary'><i class='fa fa-edit'></i></button>&nbsp;<button style='font-size:13px;' type='button' class='desactivar btn btn-danger'><i class='fa fa-trash'></i></button>&nbsp;<button style='font-size:13px;' type='button' class='activar btn btn-success' disabled><i class='fa fa-check'></i></button>";
-                    } else {
-                        return "<button style='font-size:13px;' type='button' class='editar btn btn-primary'><i class='fa fa-edit'></i></button>&nbsp;<button style='font-size:13px;' type='button' class='desactivar btn btn-danger'disabled><i class='fa fa-trash'></i></button>&nbsp;<button style='font-size:13px;' type='button' class='activar btn btn-success'><i class='fa fa-check'></i></button>";
-                    }
-                }
-            }
+            { "defaultContent": "<button style='font-size:13px;' type='button' class='editar btn btn-primary'><i class='fa fa-edit'></i></button>&nbsp;<button style='font-size:13px;' type='button' class='desactivar btn btn-danger'><i class='fa fa-trash'></i></button>&nbsp;<button style='font-size:13px;' type='button' class='activar btn btn-success'><i class='fa fa-check'></i></button>" }
         ],
 
         "language": idioma_espanol,
         select: true
     });
-    document.getElementById("tabla_usuario_filter").style.display = "none";
+    document.getElementById("tabla_procedimiento_filter").style.display = "none";
     $('input.global_filter').on('keyup click', function () {
         filterGlobal();
     });
     $('input.column_filter').on('keyup click', function () {
         filterColumn($(this).parents('tr').attr('data-column'));
     });
-
+    //codigo para el contador de numero de registros
+    tableprocedimiento.on( 'draw.dt', function () {
+        var PageInfo = $('#tabla_procedimiento').DataTable().page.info();
+        tableprocedimiento.column(0, { page: 'current' }).nodes().each( function (cell, i) {
+                cell.innerHTML = i + 1 + PageInfo.start;
+            } );
+    } );
 }
+
 
 $('#tabla_usuario').on('click', '.activar', function () {
     var data = table.row($(this).parents('tr')).data();

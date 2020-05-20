@@ -1,8 +1,8 @@
-<script type="text/javascript" src="../js/usuario.js?rev=<?php echo time();?>"></script>
+<script type="text/javascript" src="../js/procedimiento.js?rev=<?php echo time();?>"></script>
 <div class="col-md-12">
     <div class="box box-warning box-solid">
         <div class="box-header with-border">
-            <h3 class="box-title">BIENVENIDO AL CONTENIDO DEL USUARIO</h3>
+            <h3 class="box-title">MANTENIMIENTO DE PROCEDIMIENTO</h3>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -26,14 +26,12 @@
                                 class="glyphicon glyphicon-plus"></i>Nuevo Registro</button>
                     </div>
                 </div>
-                <table id="tabla_usuario" class="display responsive nowrap" style="width:100%">
+                <table id="tabla_procedimiento" class="display responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Usuario</th>
-                            <th>Email</th>
-                            <th>Rol</th>
-                            <th>Sexo</th>
+                            <th>Nombre</th>
+                            <th>Fecha Registro</th>
                             <th>Estatus</th>
                             <th>Acci&oacute;n</th>
                         </tr>
@@ -41,10 +39,8 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Usuario</th>
-                            <th>Email</th>
-                            <th>Rol</th>
-                            <th>Sexo</th>
+                            <th>Nombre</th>
+                            <th>Fecha Registro</th>
                             <th>Estatus</th>
                             <th>Acci&oacute;n</th>
                         </tr>
@@ -155,7 +151,7 @@
 </form>
 <script>
     $(document).ready(function() {
-       
+        listar_procedimiento(); 
         $('.js-example-basic-single').select2();
         
         $("#modal_registro").on('shown.bs.modal', function() {
