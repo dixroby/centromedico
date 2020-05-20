@@ -29,8 +29,8 @@
 			}
         }
         
-        function Modificar_Datos_Procedimiento($procedimientoid,$procedimiento,$estatus){
-            $sql = "call SP_MODIFICAR_DATOS_PROCEDIMIENTO('$procedimientoid','$procedimiento','$estatus')";
+        function Modificar_Datos_Insumo($id,$insumo,$stock,$estatus){
+            $sql = "call SP_MODIFICAR_DATOS_INSUMO('$id','$insumo','$stock','$estatus')";
 			if ($consulta = $this->conexion->conexion->query($sql)) {
 				return 1;
 				

@@ -101,9 +101,10 @@ $('#tabla_insumo').on('click', '.editar', function () {
     }
     $("#modal_editar").modal({ backdrop: 'static', keyboard: false })
     $("#modal_editar").modal('show');
-    $("#txtidprocedimiento").val(data.procedimiento_id);
-    $("#txt_procedimiento_editar").val(data.procedimiento_nombre);
-    $("#cbm_estatus_editar").val(data.procedimiento_estatus).trigger("change");
+    $("#txtidinsumo").val(data.insumo_id );
+    $("#txt_insumo_editar").val(data.insumo_nombre);
+    $("#txt_stock_editar").val(data.insumo_stock);
+    $("#cbm_estatus_editar").val(data.insumo_estatus).trigger("change");
 })
 
 function filterGlobal() {
@@ -151,21 +152,23 @@ function LimpiarRegistro() {
     $("#txt_stock").val("");
 }
  
-function Modificar_Procedimiento() {
-   var procedimientoid = $("#txtidprocedimiento").val();
-   var procedimiento = $("#txt_procedimiento_editar").val();
+function Modificar_Insumo() {
+   var id = $("#txtidinsumo").val();
+   var insumo = $("#txt_insumo_editar").val();
+   var stock = $("#txt_stock_editar").val();
    var estatus = $("#cbm_estatus_editar").val();
 
-    if (procedimiento.length == 0 || estatus.length == 0) {
+    if (insumo.length == 0 || stock.length == 0) {
         return Swal.fire("Mensaje De Advertencia", "Llene los campos vacios", "warning");
     }
 
     $.ajax({
-        "url": "../controlador/procedimiento/controlador_procedimiento_modificar.php",
+        "url": "../controlador/insumo/controlador_insumo_modificar.php",
         type: 'POST',
         data: {
-            procedimientoid: procedimientoid,
-            procedimiento: procedimiento,
+            id:id,
+            insumo: insumo,
+            stock: stock,
             estatus: estatus
         }
     }).done(function (resp) {
@@ -173,9 +176,8 @@ function Modificar_Procedimiento() {
             $("#modal_editar").modal('hide');
             Swal.fire("Mensaje De Confirmacion", "Datos actualizados correctamente.", "success")
                 .then((value) => {
-                    listar_procedimiento();
-                    tableprocedimiento.ajax.reload();
-                    TraerDatosUsuario();
+                    listar_insumo();
+                    tableinsumo.ajax.reload();
                 });
         } else {
             Swal.fire("Mensaje De Error", "Lo sentimos, no se pudo completar la actualización", "error");
