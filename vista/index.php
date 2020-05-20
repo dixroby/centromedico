@@ -273,7 +273,7 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
         </li>
       </ul>
     </section>
-    <!-- /.sidebar -->
+    <!-- /.sidebar -->  
   </aside>
 
   <!-- Content Wrapper. Contains page content -->

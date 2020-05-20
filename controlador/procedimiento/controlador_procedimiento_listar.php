@@ -1,5 +1,6 @@
 <?php
     require '../../modelo/modelo_procedimiento.php';
+    
     $MU = new Modelo_Procedimiento();
     $consulta = $MU->listar_procedimiento();
     if($consulta){

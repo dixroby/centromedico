@@ -76,9 +76,9 @@ function VerificarUsuario() {
         }
     })
 }
-
+var tableprocedimiento;
 function listar_procedimiento() {
-        var tableprocedimiento = $("#tabla_procedimiento").DataTable({
+        tableprocedimiento = $("#tabla_procedimiento").DataTable({
         "ordering": false,
         "bLengthChange": false,
         "searching": { "regex": false },
@@ -129,7 +129,7 @@ function listar_procedimiento() {
 }
 
 
-$('#tabla_usuario').on('click', '.activar', function () {
+$('#tabla_procedimiento').on('click', '.activar', function () {
     var data = table.row($(this).parents('tr')).data();
     if (table.row(this).child.isShown()) {
         var data = table.row(this).data();
@@ -149,7 +149,7 @@ $('#tabla_usuario').on('click', '.activar', function () {
     })
 })
 
-$('#tabla_usuario').on('click', '.desactivar', function () {
+$('#tabla_procedimiento').on('click', '.desactivar', function () {
     var data = table.row($(this).parents('tr')).data();
     if (table.row(this).child.isShown()) {
         var data = table.row(this).data();
@@ -169,18 +169,16 @@ $('#tabla_usuario').on('click', '.desactivar', function () {
     })
 })
 
-$('#tabla_usuario').on('click', '.editar', function () {
-    var data = table.row($(this).parents('tr')).data();
-    if (table.row(this).child.isShown()) {
-        var data = table.row(this).data();
+$('#tabla_procedimiento').on('click', '.editar', function () {
+    var data = tableprocedimiento.row($(this).parents('tr')).data();
+    if (tableprocedimiento.row(this).child.isShown()) {
+        var data = tableprocedimiento.row(this).data();
     }
     $("#modal_editar").modal({ backdrop: 'static', keyboard: false })
     $("#modal_editar").modal('show');
-    $("#txtidusuario").val(data.usu_id);
-    $("#txtusu_editar").val(data.usu_nombre);
-    $("#txt_email_editar").val(data.usu_email);
-    $("#cbm_sexo_editar").val(data.usu_sexo).trigger("change");
-    $("#cbm_rol_editar").val(data.rol_id).trigger("change");
+    $("#txtidprocedimiento").val(data.procedimiento_id);
+    $("#txt_procedimiento_editar").val(data.procedimiento_nombre);
+    $("#cbm_estatus_editar").val(data.procedimiento_estatus).trigger("change"); 
 })
 
 function Modificar_Estatus(idusuario, estatus) {
@@ -210,7 +208,7 @@ function Modificar_Estatus(idusuario, estatus) {
 }
 
 function filterGlobal() {
-    $('#tabla_usuario').DataTable().search(
+    $('#tabla_procedimiento').DataTable().search(
         $('#global_filter').val(),
     ).draw();
 }
@@ -241,47 +239,32 @@ function listar_combo_rol() {
     })
 }
 
-function Registrar_Usuario() {
-    var usu = $("#txt_usu").val();
-    var contra = $("#txt_con1").val();
-    var contra2 = $("#txt_con2").val();
-    var sexo = $("#cbm_sexo").val();
-    var rol = $("#cbm_rol").val();
-    var email = $("#txt_email").val();
-    var validaremail = $("#validar_email").val();
-    if (usu.length == 0 || contra.length == 0 || contra.length == 0 || contra2.length == 0 || sexo.length == 0 || rol.length == 0) {
+function Registrar_Procedimiento() {
+    var procedimiento = $("#txt_procedimiento").val();
+    var estatus = $("#cbm_estatus").val();
+    
+    if (procedimiento.length == 0) {
         return Swal.fire("Mensaje De Advertencia", "Llene los campos vacios", "warning");
     }
-
-    if (contra != contra2) {
-        return Swal.fire("Mensaje De Advertencia", "Las contraseñas deben coincidir", "warning");
-    }
-
-    if (validaremail=="incorrecto") { 
-        return Swal.fire("Mensaje De Advertencia", "Ingrese un formato valido de Email", "warning");
-    }
-
     $.ajax({
-        "url": "../controlador/usuario/controlador_usuario_registro.php",
+        url: "../controlador/procedimiento/controlador_procedimiento_registro.php",
         type: 'POST',
         data: {
-            usuario: usu,
-            contrasena: contra,
-            sexo: sexo,
-            rol: rol,
-            email:email
+            procedimiento: procedimiento,
+            estatus: estatus
         }
     }).done(function (resp) {
         if (resp > 0) {
             if (resp == 1) {
-                $("#modal_registro").modal('hide');
-                Swal.fire("Mensaje De Confirmacion", "Datos correctamente, Nuevo Usuario Registrado", "success")
+                $("#modal_registro").modal('hide');//cerrar modal 
+                Swal.fire("Mensaje De Confirmacion", "Datos correctamente, Nuevo Procedimiento Registrado", "success")
                     .then((value) => {
                         LimpiarRegistro();
-                        table.ajax.reload();
+                        listar_procedimiento();
+                        tableprocedimiento.ajax.reload();
                     });
             } else {
-                return Swal.fire("Mensaje De Advertencia", "Lo sentimos, el nombre del usuario ya se encuentra en nuestra base de datos", "warning");
+                return Swal.fire("Mensaje De Advertencia", "Lo sentimos, el nombre del Procedimiento ya se encuentra en nuestra base de datos", "warning");
             }
         } else {
             Swal.fire("Mensaje De Error", "Lo sentimos, no se pudo completar el registro", "error");
@@ -291,34 +274,30 @@ function Registrar_Usuario() {
 
 }
 
-function Modificar_Usuario() {
-    var idusuario = $("#txtidusuario").val();
-    var sexo = $("#cbm_sexo_editar").val();
-    var rol = $("#cbm_rol_editar").val();
-    var email = $("#txt_email_editar").val();
-    var validaremail = $("#validar_email_editar").val();
-    if (idusuario.length == 0 || sexo.length == 0 || rol.length == 0) {
+function Modificar_Procedimiento() {
+   var procedimientoid = $("#txtidprocedimiento").val();
+   var procedimiento = $("#txt_procedimiento_editar").val();
+   var estatus = $("#cbm_estatus_editar").val();
+
+    if (procedimiento.length == 0 || estatus.length == 0) {
         return Swal.fire("Mensaje De Advertencia", "Llene los campos vacios", "warning");
-    }
-    if (validaremail=="incorrecto") { 
-        return Swal.fire("Mensaje De Advertencia", "Ingrese un formato valido de Email", "warning");
     }
 
     $.ajax({
-        "url": "../controlador/usuario/controlador_usuario_modificar.php",
+        "url": "../controlador/procedimiento/controlador_procedimiento_modificar.php",
         type: 'POST',
         data: {
-            idusuario: idusuario,
-            sexo: sexo,
-            rol: rol,
-            email:email
+            procedimientoid: procedimientoid,
+            procedimiento: procedimiento,
+            estatus: estatus
         }
     }).done(function (resp) {
         if (resp > 0) {
             $("#modal_editar").modal('hide');
             Swal.fire("Mensaje De Confirmacion", "Datos actualizados correctamente.", "success")
                 .then((value) => {
-                    table.ajax.reload();
+                    listar_procedimiento();
+                    tableprocedimiento.ajax.reload();
                     TraerDatosUsuario();
                 });
         } else {
