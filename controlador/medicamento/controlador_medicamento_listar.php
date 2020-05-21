@@ -1,8 +1,8 @@
 <?php
-    require '../../modelo/modelo_insumo.php';
-    $MI = new Modelo_Insumo();
+    require '../../modelo/modelo_medicamento.php';
+    $MI = new Modelo_Medicamento();
 
-    $consulta = $MI->listar_Insumo();
+    $consulta = $MI->listar_Medicamento();
     if($consulta){
         echo json_encode($consulta);
     }else{
