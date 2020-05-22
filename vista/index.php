@@ -282,8 +282,14 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
+          <a onclick="cargar_contenido('contenido_principal','medico/vista_medico_listar.php')">
+            <i class="fa fa-user-md"></i> <span>Medico</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
           <a onclick="cargar_contenido('contenido_principal','pacientes/vista_pacientes_listar.php')">
-            <i class="fa fa-medkit"></i> <span>Pacientes</span>
+            <i class="fa fa-users"></i> <span>Pacientes</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
