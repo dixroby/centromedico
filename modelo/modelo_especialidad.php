@@ -6,6 +6,21 @@
             $this->conexion = new conexion();
             $this->conexion->conectar();
         }
+        public function listaEspecialidad(){
+
+            $resultado = $this->conexion->conexion->query("call SP_LISTAR_ESPECIALIDAD()");
+    
+            //obtengo los datos en un arreglo
+            return $resultado->fetch_all(MYSQLI_ASSOC);
+        }
+
+        public function listaEspecialidadXmedico(){
+
+            $resultado = $this->conexion->conexion->query("SELECT * from medico INNER JOIN especialidad on medico.especialidad_id = especialidad.especialidad_id ");
+    
+            //obtengo los datos en un arreglo
+            return $resultado->fetch_all(MYSQLI_ASSOC);
+        }
 
         function listar_Especialidad(){
             $sql = "call SP_LISTAR_ESPECIALIDAD()";

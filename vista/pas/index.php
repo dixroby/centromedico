@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,24 +9,25 @@
     <title>Hospital Guillermo</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/animate.min.css" rel="stylesheet"> 
-    <link href="css/lightbox.css" rel="stylesheet"> 
-	<link href="css/main.css" rel="stylesheet">
-	<link href="css/responsive.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/lightbox.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
 	    <script src="js/html5shiv.js"></script>
 	    <script src="js/respond.min.js"></script>
-    <![endif]-->       
+    <![endif]-->
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-</head><!--/head-->
+</head>
+<!--/head-->
 
 <body>
-	<header id="header">     
+    <header id="header">
         <div class="navbar navbar-inverse" role="banner">
             <div class="container">
                 <div class="navbar-header">
@@ -37,9 +39,10 @@
                     </button>
 
                     <a class="navbar-brand" href="index.html">
-                    	<h1 class="text-primary"><b>San Camilo de Lellis</b><img style="height: 40px;" src="images/logoh.png" alt="logo"></h1>
+                        <h1 class="text-primary"><b>San Camilo de Lellis</b><img style="height: 40px;"
+                                src="images/logoh.png" alt="logo"></h1>
                     </a>
-                    
+
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -55,7 +58,7 @@
                                 <li><a href="404.html">404 error</a></li>
                                 <li><a href="coming-soon.html">Coming Soon</a></li>
                             </ul>
-                        </li>                    
+                        </li>
                         <li class="dropdown"><a href="blog.html">Blog <i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
                                 <li><a href="blog.html">Blog Default</a></li>
@@ -75,8 +78,8 @@
                                 <li><a href="portfoliothree.html">2 Columns</a></li>
                                 <li><a href="portfolio-details.html">Portfolio Details</a></li>
                             </ul>
-                        </li>                         
-                        <li><a href="shortcodes.html ">Shortcodes</a></li>                    
+                        </li>
+                        <li><a href="shortcodes.html ">Shortcodes</a></li>
                     </ul>
                 </div>
                 <div class="search">
@@ -91,69 +94,80 @@
         </div>
     </header>
     <!--/#header-->
-  
-    <section id="home-slider">
-        <div class="container">
-            <div class="row">
-                <div class="main-slider">
-                    <div class="slide-text">
-                        <h1>Bienvenido al Hospital San Camilo de Lellis</h1>
-                        <p>Atencion online, en 2 pasos, realize su cita medica en una especialidad.</p>
-                        <a href="#" class="btn btn-common">Atenderme</a>
-                    </div>
-                    <img style="max-height: 400px;" src="images/img1.jpeg" class="slider-hill" alt="slider image">
-                    <img src="images/home/slider/sun.png" class="slider-sun" alt="slider image">
-                    <img src="images/home/slider/birds1.png" class="slider-birds1" alt="slider image">
-                    <img src="images/home/slider/birds2.png" class="slider-birds2" alt="slider image">
-                </div>
-            </div>
-        </div>
-        <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
-    </section>
-    <!--/#home-slider-->
 
     
-
-
-
-    <section id="">
-        <div class="container">
+    <div id="contenido" class="container">
+        <section id="home-slider">
+            <div class="container">
+                <div class="row">
+                    <div class="main-slider">
+                        <div class="slide-text">
+                            <h1>Bienvenido al Hospital San Camilo de Lellis</h1>
+                            <p>Atencion online, en 2 pasos, realize su cita medica en una especialidad.</p>
+                            <a href="#consulta" class="btn btn-common">Atenderme</a>
+                        </div>
+                        <img style="max-height: 400px;" src="images/img1.jpeg" class="slider-hill" alt="slider image">
+                        <img src="images/home/slider/sun.png" class="slider-sun" alt="slider image">
+                        <img src="images/home/slider/birds1.png" class="slider-birds1" alt="slider image">
+                        <img src="images/home/slider/birds2.png" class="slider-birds2" alt="slider image">
+                    </div>
+                </div>
+            </div>
+            <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
+        </section>
+        <!--/#home-slider-->
+        
+        <section id="">
             <div class="row">
                 <div class="col-sm-12">
                     <div class=" text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
-                        <h1 class="title">Realiza tu cita</h1>
+                        <h1 id="consulta" class="title">Realiza tu cita</h1>
                         <p>Elige la especialidad, y un medico te atendera </p>
                     </div>
                 </div>
             </div>
-        </div>
-     </section>
-    <!--/#clients--> 
-
-    <section id="portfolio">
-        <div class="container">
+        </section>
+        <!--/#clients-->
+        
+        <section id="portfolio">
+        
             <div class="row">
-                <ul  class="portfolio-filter text-center " >
-                    <li><a class="btn btn-default active" href="#" data-filter="*">Todos</a></li>
-                    <li><a class="btn btn-default" href="#" data-filter=".branded">Medicina General</a></li>
-                    <li><a class="btn btn-default" href="#" data-filter=".psicologia">Psicología</a></li>
-                    <li><a class="btn btn-default" href="#" data-filter=".pediatria">Pediatría</a></li>
-                    <li><a class="btn btn-default" href="#" data-filter=".logos">Planificación Familiar</a></li>
-                    <li><a class="btn btn-default" href="#" data-filter=".mobile">Geriatría</a></li>
-                    <li><a class="btn btn-default" href="#" data-filter=".mockup">Otro</a></li>
-                </ul><!--/#portfolio-filter-->
+                <ul class="portfolio-filter text-center ">
+
+                <?php 
+                    require_once("../../modelo/modelo_especialidad.php");
+                    
+                    $est = new  Modelo_Especialidad();
+
+                    $listaEsp =$est->listaEspecialidad();
+                    //para imprimir si hay errores
+                    //print_r($listaEsp); 
+                ?>
+                    <li>
+                        <a class="btn btn-default active" href="#" data-filter="*">
+                            Todas las Especialidades</a>
+                    </li>
+                <?php foreach ($listaEsp as  $value)  {?>
+                    <li><a class="btn btn-default" href="#" data-filter=".<?php echo $value['especialidad_nombre'];?>">
+                            <?php echo $value['especialidad_nombre'];?></a>
+                    </li>
+                    <?php }?>
+                    
+                </ul>
+                <!--/#portfolio-filter-->
                 <style>
-                    .cajas{
+                    .cajas {
                         border-radius: 20px;
                         padding: 10px;
                     }
-                    .cajas:hover{
+        
+                    .cajas:hover {
                         background: rgba(223, 205, 212, 0.9);
                         text-align: center;
                     }
                 </style>
                 <div class="portfolio-items">
-                    <div  class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
+                    <div class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
                         <div class="col-sm-12 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
                             <div class="feature-inner">
                                 <div class="icon-wrapper">
@@ -162,11 +176,11 @@
                                 <h2>Medicina General</h2>
                                 <p><b>Doctor :</b> Doc. Luis beltran</p>
                                 <p><b>En cola :</b> 4</p>
-                                <p><a href="#" class="btn btn-common">Atenderme</a></p>
+                                <p><a href="especialidad.php" class="btn btn-common">Atenderme</a></p>
                             </div>
                         </div>
                     </div>
-                    <div  class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
+                    <div class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
                         <div class="col-sm-12 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
                             <div class="feature-inner">
                                 <div class="icon-wrapper">
@@ -179,7 +193,7 @@
                             </div>
                         </div>
                     </div>
-                    <div  class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
+                    <div class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
                         <div class="col-sm-12 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
                             <div class="feature-inner">
                                 <div class="icon-wrapper">
@@ -192,7 +206,7 @@
                             </div>
                         </div>
                     </div>
-                    <div  class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item psicologia">
+                    <div class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item psicologia">
                         <div class="col-sm-12 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
                             <div class="feature-inner">
                                 <div class="icon-wrapper">
@@ -205,7 +219,7 @@
                             </div>
                         </div>
                     </div>
-                    <div  class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item pediatria">
+                    <div class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item pediatria">
                         <div class="col-sm-12 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
                             <div class="feature-inner">
                                 <div class="icon-wrapper">
@@ -221,32 +235,68 @@
                 </div>
                 <div class="portfolio-pagination">
                     <ul class="pagination">
-                      <li><a href="#">left</a></li>
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li class="active"><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                      <li><a href="#">6</a></li>
-                      <li><a href="#">7</a></li>
-                      <li><a href="#">8</a></li>
-                      <li><a href="#">9</a></li>
-                      <li><a href="#">right</a></li>
+                        <li><a href="#">left</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li class="active"><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">6</a></li>
+                        <li><a href="#">7</a></li>
+                        <li><a href="#">8</a></li>
+                        <li><a href="#">9</a></li>
+                        <li><a href="#">right</a></li>
                     </ul>
                 </div>
             </div>
-        </div>
-    </section>
+        
+        </section>
+        
+    </div>
+   
     <!--/#portfolio-->
-
+    <script>
+        function cargar_contenido(contenedor, contenido) {
+            $("#" + contenedor).load(contenido);
+        }
+    </script>
 
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
     <script type="text/javascript" src="js/lightbox.min.js"></script>
     <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script> 
-    
-    
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <script src="../../../Plantilla/"></script>
+    <script src="../../../Plantilla/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Morris.js charts -->
+<script src="../../Plantilla/bower_components/raphael/raphael.min.js"></script>
+<!-- Sparkline -->
+<script src="../../Plantilla/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<!-- jvectormap -->
+<script src="../../Plantilla/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="../../Plantilla/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="../../Plantilla/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="../../Plantilla/bower_components/moment/min/moment.min.js"></script>
+<script src="../../Plantilla/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- datepicker -->
+<script src="../../Plantilla/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="../../Plantilla/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="../../Plantilla/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../../Plantilla/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../../Plantilla/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<!-- AdminLTE for demo purposes -->
+<script src="../../Plantilla/dist/js/demo.js"></script>
+
+
 </body>
+
 </html>
