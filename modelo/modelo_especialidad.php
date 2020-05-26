@@ -14,9 +14,17 @@
             return $resultado->fetch_all(MYSQLI_ASSOC);
         }
 
+        public function listaEspecialidad2(){
+
+            $resultado = $this->conexion->conexion->query("SELECT * FROM ESPECIALIDAD where especialidad_estatus = 'ACTIVO'");
+    
+            //obtengo los datos en un arreglo
+            return $resultado->fetch_all(MYSQLI_ASSOC);
+        }
+
         public function listaEspecialidadXmedico(){
 
-            $resultado = $this->conexion->conexion->query("SELECT * from medico INNER JOIN especialidad on medico.especialidad_id = especialidad.especialidad_id ");
+            $resultado = $this->conexion->conexion->query("SELECT * from medico INNER JOIN especialidad on medico.especialidad_id = especialidad.especialidad_id where especialidad_estatus = 'ACTIVO'");
     
             //obtengo los datos en un arreglo
             return $resultado->fetch_all(MYSQLI_ASSOC);

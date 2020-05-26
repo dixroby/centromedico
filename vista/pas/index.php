@@ -13,6 +13,7 @@
     <link href="css/lightbox.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
 	    <script src="js/html5shiv.js"></script>
@@ -95,7 +96,7 @@
     </header>
     <!--/#header-->
 
-    
+
     <div id="contenido" class="container">
         <section id="home-slider">
             <div class="container">
@@ -116,7 +117,7 @@
             <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
         </section>
         <!--/#home-slider-->
-        
+
         <section id="">
             <div class="row">
                 <div class="col-sm-12">
@@ -128,110 +129,119 @@
             </div>
         </section>
         <!--/#clients-->
-        
+
         <section id="portfolio">
-        
+
             <div class="row">
                 <ul class="portfolio-filter text-center ">
 
-                <?php 
-                    require_once("../../modelo/modelo_especialidad.php");
-                    
-                    $est = new  Modelo_Especialidad();
+                    <?php 
+                        require_once("../../modelo/modelo_especialidad.php");
+                        
+                        $est = new  Modelo_Especialidad();
 
-                    $listaEsp =$est->listaEspecialidad();
-                    //para imprimir si hay errores
-                    //print_r($listaEsp); 
-                ?>
+                        $listaEsp =$est->listaEspecialidad2();
+                        //para imprimir si hay errores
+                         
+                    ?>
+                    <br>
                     <li>
                         <a class="btn btn-default active" href="#" data-filter="*">
-                            Todas las Especialidades</a>
+                            Todas las Especialidades (<?php echo(count($listaEsp)); ?>)</a>
                     </li>
-                <?php foreach ($listaEsp as  $value)  {?>
-                    <li><a class="btn btn-default" href="#" data-filter=".<?php echo $value['especialidad_nombre'];?>">
-                            <?php echo $value['especialidad_nombre'];?></a>
+                    <?php foreach ($listaEsp as  $value)  {?>
+                    <li><a class="btn btn-default" href="#" data-filter=".val<?php echo $value['especialidad_id'];?>">
+                            <b><?php echo $value['especialidad_nombre'];?></b></a>
                     </li>
                     <?php }?>
-                    
+
                 </ul>
                 <!--/#portfolio-filter-->
-                <style>
-                    .cajas {
-                        border-radius: 20px;
-                        padding: 10px;
-                    }
-        
-                    .cajas:hover {
-                        background: rgba(223, 205, 212, 0.9);
-                        text-align: center;
-                    }
-                </style>
-                <div class="portfolio-items">
-                    <div class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
-                        <div class="col-sm-12 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <div class="feature-inner">
-                                <div class="icon-wrapper">
-                                    <i class="fa fa-2x fa-envelope-o"></i>
+
+                <div class="portfolio-items text-center">
+                    <?php 
+                        require_once("../../modelo/modelo_especialidad.php");
+                        
+                        $est = new  Modelo_Especialidad();
+
+                        $listaEspXmed =$est->listaEspecialidadXmedico();
+                        //para imprimir si hay errores
+                        //print_r(count($listaEspXmed)); 
+                        
+                    foreach ($listaEspXmed as  $value)  {?>
+                    <div
+                        class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos val<?php echo $value['especialidad_id'];?>">
+                        <div class="portfolio-wrapper">
+                            <div class="portfolio-single">
+                                <div class="portfolio-thumb">
+                                    <img src="images/medico.jpg" class="img-responsive" alt="">
                                 </div>
-                                <h2>Medicina General</h2>
-                                <p><b>Doctor :</b> Doc. Luis beltran</p>
-                                <p><b>En cola :</b> 4</p>
-                                <p><a href="especialidad.php" class="btn btn-common">Atenderme</a></p>
+                                <div class="portfolio-view">
+                                    <ul class="nav nav-pills">
+                                        <li><input onclick="VerificarCita()" type="button" class="btn btn-common" value="Atenderme"
+                                                name="Realizar cita"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="portfolio-info ">
+                                <h2><b>
+                                        <div><?php echo $value['especialidad_nombre'];?></div>
+                                    </b>
+                                </h2>
                             </div>
                         </div>
                     </div>
-                    <div class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
-                        <div class="col-sm-12 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <div class="feature-inner">
-                                <div class="icon-wrapper">
-                                    <i class="fa fa-2x fa-envelope-o"></i>
+                    <?php } ?>
+
+                    <?php foreach ($listaEspXmed as  $value)  {?>
+                    <div
+                        class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos val<?php echo $value['especialidad_id'];?>">
+                        <div class="portfolio-wrapper">
+                            <div class="portfolio-single">
+                                <div class="portfolio-thumb">
+                                    <img src="images/medico.jpg" class="img-responsive" alt="">
                                 </div>
-                                <h2>Medicina General</h2>
-                                <p><b>Doctor :</b> Doc. Luis Carlos</p>
-                                <p><b>En cola :</b> 8</p>
-                                <p><a href="#" class="btn btn-common">Atenderme</a></p>
+                                <div class="portfolio-view">
+                                    <ul class="nav nav-pills">
+                                        <li><input type="button" class="btn btn-submit" value="Atenderme"
+                                                name="Realizar cita"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="portfolio-info ">
+                                <h2><b>
+                                        <div><?php echo $value['especialidad_nombre'];?></div>
+                                    </b></h2>
                             </div>
                         </div>
                     </div>
-                    <div class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
-                        <div class="col-sm-12 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <div class="feature-inner">
-                                <div class="icon-wrapper">
-                                    <i class="fa fa-2x fa-envelope-o"></i>
+                    <?php } ?>
+
+                    <?php foreach ($listaEspXmed as  $value)  {?>
+                    <div
+                        class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos val<?php echo $value['especialidad_id'];?>">
+                        <div class="portfolio-wrapper">
+                            <div class="portfolio-single">
+                                <div class="portfolio-thumb">
+                                    <img src="images/medico.jpg" class="img-responsive" alt="">
                                 </div>
-                                <h2>Planificacion familiar</h2>
-                                <p><b>Doctor :</b> Carlos Rios</p>
-                                <p><b>En cola :</b>1</p>
-                                <p><a href="#" class="btn btn-common">Atenderme</a></p>
+                                <div class="portfolio-view">
+                                    <ul class="nav nav-pills">
+                                        <li><input type="button" class="btn btn-common" value="Atenderme"
+                                                name="Realizar cita"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="portfolio-info ">
+                                <h2><b>
+                                        <div><?php echo $value['especialidad_nombre'];?></div>
+                                    </b></h2>
                             </div>
                         </div>
                     </div>
-                    <div class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item psicologia">
-                        <div class="col-sm-12 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <div class="feature-inner">
-                                <div class="icon-wrapper">
-                                    <i class="fa fa-2x fa-envelope-o"></i>
-                                </div>
-                                <h2>Psicología</h2>
-                                <p><b>Doctor :</b> Camila Diaz</p>
-                                <p><b>En cola :</b> 2</p>
-                                <p><a href="#" class="btn btn-common">Atenderme</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cajas col-xs-6 col-sm-4 col-md-3 portfolio-item pediatria">
-                        <div class="col-sm-12 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <div class="feature-inner">
-                                <div class="icon-wrapper">
-                                    <i class="fa fa-2x fa-envelope-o"></i>
-                                </div>
-                                <h2>Pediatría</h2>
-                                <p><b>Doctor :</b> Doc. Luis beltran</p>
-                                <p><b>En cola :</b> 2</p>
-                                <p><a href="#" class="btn btn-common">Atenderme</a></p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php } ?>
+
+
                 </div>
                 <div class="portfolio-pagination">
                     <ul class="pagination">
@@ -249,18 +259,19 @@
                     </ul>
                 </div>
             </div>
-        
+
         </section>
-        
+
     </div>
-   
+
     <!--/#portfolio-->
     <script>
-        function cargar_contenido(contenedor, contenido) {
-            $("#" + contenedor).load(contenido);
-        }
+    function cargar_contenido(contenedor, contenido) {
+        $("#" + contenedor).load(contenido);
+    }
     </script>
 
+    <script src="../../js/citaFrontendIndex.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
@@ -270,31 +281,31 @@
 
     <script src="../../../Plantilla/"></script>
     <script src="../../../Plantilla/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- Morris.js charts -->
-<script src="../../Plantilla/bower_components/raphael/raphael.min.js"></script>
-<!-- Sparkline -->
-<script src="../../Plantilla/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-<!-- jvectormap -->
-<script src="../../Plantilla/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="../../Plantilla/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="../../Plantilla/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
-<!-- daterangepicker -->
-<script src="../../Plantilla/bower_components/moment/min/moment.min.js"></script>
-<script src="../../Plantilla/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-<!-- datepicker -->
-<script src="../../Plantilla/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="../../Plantilla/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-<!-- Slimscroll -->
-<script src="../../Plantilla/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="../../Plantilla/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="../../Plantilla/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!-- AdminLTE for demo purposes -->
-<script src="../../Plantilla/dist/js/demo.js"></script>
+    <!-- Morris.js charts -->
+    <script src="../../Plantilla/bower_components/raphael/raphael.min.js"></script>
+    <!-- Sparkline -->
+    <script src="../../Plantilla/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+    <!-- jvectormap -->
+    <script src="../../Plantilla/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="../../Plantilla/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="../../Plantilla/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="../../Plantilla/bower_components/moment/min/moment.min.js"></script>
+    <script src="../../Plantilla/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- datepicker -->
+    <script src="../../Plantilla/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="../../Plantilla/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="../../Plantilla/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="../../Plantilla/bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../Plantilla/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <!-- AdminLTE for demo purposes -->
+    <script src="../../Plantilla/dist/js/demo.js"></script>
 
 
 </body>
