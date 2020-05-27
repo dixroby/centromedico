@@ -30,6 +30,18 @@
             return $resultado->fetch_all(MYSQLI_ASSOC);
         }
 
+        function VerificarMedico($nombre){
+            $sql = "call SP_VERIFICAR_MEDICO('$nombre')";
+			$arreglo = array();
+			if ($consulta = $this->conexion->conexion->query($sql)) {
+				while ($consulta_VU = mysqli_fetch_assoc($consulta)) {
+                    $arreglo["data"][]=$consulta_VU;
+				}
+				return $arreglo;
+				$this->conexion->cerrar();
+			}
+        }
+
         function listar_Especialidad(){
             $sql = "call SP_LISTAR_ESPECIALIDAD()";
 			$arreglo = array();

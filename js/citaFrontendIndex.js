@@ -1,3 +1,4 @@
+
 var tableinsumo;
 function listar_Citas() {
     tableinsumo = $("#tabla_citas_frontend").DataTable({

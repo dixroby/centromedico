@@ -1,3 +1,63 @@
+function VerificarCita() {
+    var idmedico = $("#txtidmedico").val();
+    var idespecialidad = $("#txtidespecialidad").val();
+    var medico = $("#txtmedico").val();
+
+    $.ajax({
+        url: '../../controlador/medico/controlador_verificar_medico.php',
+        type: 'POST',
+        data: {
+            idmedico: idmedico
+        }
+    }).done(function (resp) {
+        if (resp == 0) {
+            return Swal.fire("Mensaje De Advertencia", "Medico no disponible por el momento", "warning");
+        } else {
+            var data = JSON.parse(resp);
+            alert(resp);
+            $.ajax({
+                url: '../../controlador/medico/controlador_crear_session.php',
+                type: 'POST',
+                data: {
+                    idmed: data[0][0],
+                    medico_nombre: data[0][1],
+                    medico_apepat: data[0][2],
+                    medico_apemat: data[0][3],
+                    especialidad: data[0][13]
+                }
+            }).done(function (resp) {
+                let timerInterval
+                Swal.fire({
+                    title: 'ASIGNANDOLE A UNA CITA ...',
+                    html: 'Usted sera redireccionado en <b></b> milisegundos.',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    onBeforeOpen: () => {
+                        Swal.showLoading()
+                        timerInterval = setInterval(() => {
+                            const content = Swal.getContent()
+                            if (content) {
+                                const b = content.querySelector('b')
+                                if (b) {
+                                    b.textContent = Swal.getTimerLeft()
+                                }
+                            }
+                        }, 100)
+                    },
+                    onClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        location.reload();
+                    }
+                })
+            })
+
+        }
+    })
+}
 var tableinsumo;
 function listar_Citas() {
     tableinsumo = $("#tabla_citas_frontend").DataTable({

@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if(isset($_SESSION['S_IDMEDICO'])){
+        header('Location: especialidad.php');
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -169,78 +176,33 @@
                         //print_r(count($listaEspXmed)); 
                         
                     foreach ($listaEspXmed as  $value)  {?>
-                    <div
-                        class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos val<?php echo $value['especialidad_id'];?>">
-                        <div class="portfolio-wrapper">
-                            <div class="portfolio-single">
-                                <div class="portfolio-thumb">
-                                    <img src="images/medico.jpg" class="img-responsive" alt="">
+                        <div
+                            class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos val<?php echo $value['especialidad_id'];?>">
+                            <div class="portfolio-wrapper">
+                                <div class="portfolio-single">
+                                    <div class="portfolio-thumb">
+                                        <img src="images/medico.jpg" class="img-responsive" alt="">
+                                    </div>
+                                    <div class="portfolio-view">
+                                        <ul class="nav nav-pills">
+                                            <li><input onclick="VerificarCita()" type="button" class="btn btn-common"
+                                                    value="Atenderme" name="Realizar cita"></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="portfolio-view">
-                                    <ul class="nav nav-pills">
-                                        <li><input onclick="VerificarCita()" type="button" class="btn btn-common" value="Atenderme"
-                                                name="Realizar cita"></li>
-                                    </ul>
+                                <div class="portfolio-info ">
+                                    <h2><b>
+                                            <input hidden type="text" value="<?php echo $value['medico_id'];?>"
+                                                id="txtidmedico">
+                                            <input hidden type="text" value="<?php echo $value['especialidad_id'];?>"
+                                                id="txtidespecialidad">
+                                            <div id="txtmedico"><?php echo $value['especialidad_nombre'];?></div>
+                                        </b></h2>
                                 </div>
-                            </div>
-                            <div class="portfolio-info ">
-                                <h2><b>
-                                        <div><?php echo $value['especialidad_nombre'];?></div>
-                                    </b>
-                                </h2>
                             </div>
                         </div>
-                    </div>
                     <?php } ?>
-
-                    <?php foreach ($listaEspXmed as  $value)  {?>
-                    <div
-                        class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos val<?php echo $value['especialidad_id'];?>">
-                        <div class="portfolio-wrapper">
-                            <div class="portfolio-single">
-                                <div class="portfolio-thumb">
-                                    <img src="images/medico.jpg" class="img-responsive" alt="">
-                                </div>
-                                <div class="portfolio-view">
-                                    <ul class="nav nav-pills">
-                                        <li><input type="button" class="btn btn-submit" value="Atenderme"
-                                                name="Realizar cita"></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="portfolio-info ">
-                                <h2><b>
-                                        <div><?php echo $value['especialidad_nombre'];?></div>
-                                    </b></h2>
-                            </div>
-                        </div>
-                    </div>
-                    <?php } ?>
-
-                    <?php foreach ($listaEspXmed as  $value)  {?>
-                    <div
-                        class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos val<?php echo $value['especialidad_id'];?>">
-                        <div class="portfolio-wrapper">
-                            <div class="portfolio-single">
-                                <div class="portfolio-thumb">
-                                    <img src="images/medico.jpg" class="img-responsive" alt="">
-                                </div>
-                                <div class="portfolio-view">
-                                    <ul class="nav nav-pills">
-                                        <li><input type="button" class="btn btn-common" value="Atenderme"
-                                                name="Realizar cita"></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="portfolio-info ">
-                                <h2><b>
-                                        <div><?php echo $value['especialidad_nombre'];?></div>
-                                    </b></h2>
-                            </div>
-                        </div>
-                    </div>
-                    <?php } ?>
-
+                            
 
                 </div>
                 <div class="portfolio-pagination">
@@ -271,7 +233,7 @@
     }
     </script>
 
-    <script src="../../js/citaFrontendIndex.js"></script>
+    <script src="../../js/citaFrontend.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
