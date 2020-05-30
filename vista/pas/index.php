@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_SESSION['S_IDMEDICO'])){
+    if(isset($_SESSION['MEDICO_ID'])){
         header('Location: especialidad.php');
     }
 
@@ -31,6 +31,10 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+
+    <link rel="stylesheet" href="../../Plantilla/plugins/DataTables/datatables.min.css">
+    <link rel="stylesheet" href="../../Plantilla/plugins/select2/select2.min.css">
+    <script src="../../Plantilla/bower_components/jquery/dist/jquery.min.js"></script>
 </head>
 <!--/head-->
 
@@ -55,10 +59,10 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="active"><a href="index.html">Inicio</a></li>
-                        <li class="dropdown"><a href="#">Paginas <i class="fa fa-angle-down"></i></a>
+                        <li class="dropdown"><a href="#">Covid-19 <i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="aboutus.html">About</a></li>
-                                <li><a href="aboutus2.html">About 2</a></li>
+                                <li><a href="test.php">test</a></li>
+                                <li><a href="estadisticas-mundo.php">Estadisticas de los Paises.</a></li>
                                 <li><a href="service.html">Services</a></li>
                                 <li><a href="pricing.html">Pricing</a></li>
                                 <li><a href="contact.html">Contact us</a></li>
@@ -174,7 +178,10 @@
                         $listaEspXmed =$est->listaEspecialidadXmedico();
                         //para imprimir si hay errores
                         //print_r(count($listaEspXmed)); 
-                        
+                     ?>
+                    <form action="../../controlador/medico/controlador_crear_session.php" method="post">
+                       
+                        <?php 
                     foreach ($listaEspXmed as  $value)  {?>
                         <div
                             class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos val<?php echo $value['especialidad_id'];?>">
@@ -185,24 +192,35 @@
                                     </div>
                                     <div class="portfolio-view">
                                         <ul class="nav nav-pills">
-                                            <li><input onclick="VerificarCita()" type="button" class="btn btn-common"
-                                                    value="Atenderme" name="Realizar cita"></li>
+                                            <li>
+                                                <input class="btn btn-common" value="Atenderme" name="Realizar cita" type="submit">
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="portfolio-info ">
                                     <h2><b>
                                             <input hidden type="text" value="<?php echo $value['medico_id'];?>"
-                                                id="txtidmedico">
+                                                name="medico_id">
                                             <input hidden type="text" value="<?php echo $value['especialidad_id'];?>"
-                                                id="txtidespecialidad">
-                                            <div id="txtmedico"><?php echo $value['especialidad_nombre'];?></div>
+                                                name="especialidad_id">
+
+                                            <input hidden type="text" value="<?php echo $value['medico_nombre'];?>"
+                                                name="medico_nombre">
+
+                                            <input hidden type="text" value="<?php echo $value['medico_apepat'];?>"
+                                                name="medico_apepat">
+
+                                            <input hidden type="text" value="<?php echo $value['medico_apemat'];?>"
+                                                name="medico_apemat">
+
+                                            <input type="text" value="<?php echo $value['especialidad_nombre'];?>" name="especialidad_nombre">
                                         </b></h2>
                                 </div>
                             </div>
                         </div>
-                    <?php } ?>
-                            
+                        <?php } ?>
+                    </form>
 
                 </div>
                 <div class="portfolio-pagination">
@@ -234,6 +252,9 @@
     </script>
 
     <script src="../../js/citaFrontend.js"></script>
+    <script src="../../Plantilla/plugins/DataTables/datatables.min.js"></script>
+    <script src="../../Plantilla/plugins/sweetalert2/sweetalert2.js"></script>
+
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
@@ -268,6 +289,52 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <!-- AdminLTE for demo purposes -->
     <script src="../../Plantilla/dist/js/demo.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        listar_Citas();
+
+        $("#modal_registro").on('shown.bs.modal', function() {
+            $("#txt_usu").focus();
+        })
+    });
+    </script>
+    <script>
+    var idioma_espanol = {
+        select: {
+            rows: "%d fila seleccionada"
+        },
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ning&uacute;n dato disponible en esta tabla",
+        //"sInfo": "Registros del (_START_ al _END_) total de _TOTAL_ registros",
+        "sInfo": "Pacientes del (_START_ al _END_) <b>total de pacientes en cola = _TOTAL_ </b>",
+        //"sInfoEmpty": "Registros del (0 al 0) total de 0 registros",
+        "sInfoEmpty": "Pacientes del (0 al 0) <b>total de 0 registros</b>",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "<b>Aun no existen citas por atender</b>",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+    }
+
+    function cargar_contenido(contenedor, contenido) {
+        $("#" + contenedor).load(contenido);
+    }
+    //$.widget.bridge('uibutton', $.ui.button);
+    </script>
 
 
 </body>

@@ -29,6 +29,7 @@ function VerificarUsuario() {
             })
         } else {
             var data = JSON.parse(resp);
+            alert(data[0][5]);
             if (data[0][5] === 'INACTIVO') {
                 return Swal.fire("Mensaje De Advertencia", "Lo sentimos el usuario " + usu + " se encuentra suspendido, comuniquese con el administrador", "warning");
             }

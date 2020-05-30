@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['MEDICO_ID'])){
+        header('Location: index.php');
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +20,12 @@
     <link href="css/lightbox.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
+
+    <style>
+        .swal2-container:not(.swal2-top):not(.swal2-top-start):not(.swal2-top-end):not(.swal2-top-left):not(.swal2-top-right):not(.swal2-center-start):not(.swal2-center-end):not(.swal2-center-left):not(.swal2-center-right):not(.swal2-bottom):not(.swal2-bottom-start):not(.swal2-bottom-end):not(.swal2-bottom-left):not(.swal2-bottom-right):not(.swal2-grow-fullscreen)>.swal2-modal {
+            font-size: 15px;
+        }
+    </style>
 
     <!--[if lt IE 9]>
 	    <script src="js/html5shiv.js"></script>
@@ -106,7 +119,7 @@
                 <div class="row">
                     <div class="action">
                         <div class="col-sm-12 " style="text-align: center;">
-                            <h1 class="title">Medicina General</h1>
+                            <h1 class="title"><?php echo $_SESSION['ESPECIALIDAD_NOMBRE']; ?></h1>
                             <p><b>Doc.</b> Luis Beltran</p>
                         </div>
                     </div>
@@ -159,7 +172,7 @@
                     </div>
 
                     <div class="live-preview">
-                        <a href="#" class="btn btn-common uppercase col-sm-12 ">Atenderme</a>
+                        <a onclick="cerrar_Session();" class="btn btn-danger uppercase col-sm-12 ">Salir</a>
                     </div>
                 </div>
             </div>

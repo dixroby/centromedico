@@ -62,7 +62,7 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Hospital</b>GRAU</span>
+      <span class="logo-lg">UNAMBA</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

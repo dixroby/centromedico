@@ -80,13 +80,13 @@ function listar_Citas() {
             { "data": "cita_fregistro" },
             { "data": "paciente_id" },
             { "data": "medico_id" },
-            
+
             { "defaultContent": "<button style='font-size:13px;' type='button' class='editar btn btn-primary'><i class='fa fa-edit'></i></button>&nbsp;<button style='font-size:13px;' type='button' class='desactivar btn btn-danger'><i class='fa fa-trash'></i></button>&nbsp;<button style='font-size:13px;' type='button' class='activar btn btn-success'><i class='fa fa-check'></i></button>" }
         ],
         "language": idioma_espanol,
-            //"language":  {
-            //   "url": "json/Spanish.json"
-            //  },
+        //"language":  {
+        //   "url": "json/Spanish.json"
+        //  },
         select: true
     });
     document.getElementById("tabla_citas_frontend_filter").style.display = "none";
@@ -152,7 +152,7 @@ $('#tabla_citas_frontend').on('click', '.editar', function () {
     }
     $("#modal_editar").modal({ backdrop: 'static', keyboard: false })
     $("#modal_editar").modal('show');
-    $("#txtidinsumo").val(data.insumo_id );
+    $("#txtidinsumo").val(data.insumo_id);
     $("#txt_insumo_editar").val(data.insumo_nombre);
     $("#txt_stock_editar").val(data.insumo_stock);
     $("#cbm_estatus_editar").val(data.insumo_estatus).trigger("change");
@@ -168,7 +168,7 @@ function Registrar_Insumo() {
     var nombre = $("#txt_insumo").val();
     var stock = $("#txt_stock").val();
     var status = $("#cbm_estatus").val();
-    if (nombre.length == 0 || stock.length==0 ) {
+    if (nombre.length == 0 || stock.length == 0) {
         return Swal.fire("Mensaje De Advertencia", "Llene los campos vacios", "warning");
     }
 
@@ -178,7 +178,7 @@ function Registrar_Insumo() {
         data: {
             nombre: nombre,
             stock: stock,
-            status:status
+            status: status
         }
     }).done(function (resp) {
         if (resp > 0) {
@@ -202,12 +202,12 @@ function LimpiarRegistro() {
     $("#txt_insumo").val("");
     $("#txt_stock").val("");
 }
- 
+
 function Modificar_Insumo() {
-   var id = $("#txtidinsumo").val();
-   var insumo = $("#txt_insumo_editar").val();
-   var stock = $("#txt_stock_editar").val();
-   var estatus = $("#cbm_estatus_editar").val();
+    var id = $("#txtidinsumo").val();
+    var insumo = $("#txt_insumo_editar").val();
+    var stock = $("#txt_stock_editar").val();
+    var estatus = $("#cbm_estatus_editar").val();
 
     if (insumo.length == 0 || stock.length == 0) {
         return Swal.fire("Mensaje De Advertencia", "Llene los campos vacios", "warning");
@@ -217,7 +217,7 @@ function Modificar_Insumo() {
         "url": "../controlador/insumo/controlador_insumo_modificar.php",
         type: 'POST',
         data: {
-            id:id,
+            id: id,
             insumo: insumo,
             stock: stock,
             estatus: estatus
@@ -236,29 +236,65 @@ function Modificar_Insumo() {
     })
 }
 
-function soloNumeros(e){
+function soloNumeros(e) {
     tecla = (document.all) ? e.keyCode : e.which;
-    if (tecla==8){
+    if (tecla == 8) {
         return true;
     }
     // Patron de entrada, en este caso solo acepta numeros
-    patron =/[0-9]/;
+    patron = /[0-9]/;
     tecla_final = String.fromCharCode(tecla);
     return patron.test(tecla_final);
 }
-function soloLetras(e){
+function soloLetras(e) {
     key = e.keyCode || e.which;
     tecla = String.fromCharCode(key).toLowerCase();
     letras = "áéíóúabcdefghijklmnñopqrstuvwxyz";
     especiales = "8-37-39-46";
     tecla_especial = false
-    for(var i in especiales){
-        if(key == especiales[i]){
+    for (var i in especiales) {
+        if (key == especiales[i]) {
             tecla_especial = true;
             break;
         }
     }
-    if(letras.indexOf(tecla)==-1 && !tecla_especial){
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
         return false;
     }
+}
+function cerrar_Session() {
+
+    $.ajax({
+        url: '../../controlador/usuario/controlador_cerrar_session.php',
+        type: 'POST'
+
+    }).done(function (resp) {
+
+        
+
+        Swal.fire({
+            title: 'Cancelar cita?',
+            text: "¡Se cancelara su cita en esta area!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Cancelar cita!'
+          }).then((result) => {
+            if (result.value) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Cita cancelado con exito',
+                    showConfirmButton: false,
+                    timer: 3500,
+                        
+                  }),
+                  window.location = 'index.php'
+              
+              
+            }
+          })
+
+    })
 }
