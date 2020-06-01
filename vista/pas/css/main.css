@@ -1025,10 +1025,15 @@ ul.elements li > i{
 .portfolio-view {
   display: none;
   position: absolute;
+  text-transform: lowercase !important;
+  text-decoration: blanchedalmond;
   top: 0;
   height: 100%;
-  background:rgba(112, 35, 64, 0.9);
+  color: #d3d3d3 !important;
+  font-size: 24px;
+  background:rgba(38, 3, 95, 0.643);
   width: 100%;
+  border-radius: 10px;
   text-align: center;
 }
 
