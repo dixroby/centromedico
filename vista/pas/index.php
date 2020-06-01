@@ -6,7 +6,6 @@
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -179,49 +178,81 @@
                         //para imprimir si hay errores
                         //print_r(count($listaEspXmed)); 
                      ?>
-                    <form action="../../controlador/medico/controlador_crear_session.php" method="post">
-                       
-                        <?php 
+                    <?php 
                         $sum = 0;
                     foreach ($listaEspXmed as  $value)  { 
                         $sum = $sum+1; ?>
-                        <div
-                            class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos val<?php echo $value['especialidad_id'];?>">
-                            <div class="portfolio-wrapper">
-                                <div class="portfolio-single">
-                                    <div class="portfolio-thumb">
-                                        <img src="images/medico.jpg" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="portfolio-view">
-                                        <ul class="nav nav-pills">
-                                            <li>
-                                                <input class="btn btn-common" value="Atenderme" name="Realizar cita" type="submit">
-                                            </li>
-                                        </ul>
-                                    </div>
+                    <div
+                        class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos val<?php echo $value['especialidad_id'];?>">
+                        <div class="portfolio-wrapper">
+                            <div class="portfolio-single">
+                                <div class="portfolio-thumb">
+                                    <img src="images/medico.jpg" class="img-responsive" alt="">
                                 </div>
-                                <div class="portfolio-info ">
-                                    <h2><b>
-                                            <input  type="text" value="<?php echo $value['medico_id']." ".$sum;?>"
-                                                name="medico_id">
-                                            <input  type="text" value="<?php echo $value['especialidad_id'];?>"
-                                                name="especialidad_id">
-                                            <input  type="text" value="<?php echo $value['medico_nombre'];?>"
-                                                name="medico_nombre">
-                                            <input  type="text" value="<?php echo $value['medico_apepat'];?>"
-                                                name="medico_apepat">
-                                            <input  type="text" value="<?php echo $value['medico_apemat'];?>"
-                                                name="medico_apemat">
-
-                                            <input type="text" value="<?php echo $value['especialidad_nombre'];?>" name="especialidad_nombre">
-                                        </b></h2>
+                                <div class="portfolio-view">
+                                    <ul class="nav nav-pills">
+                                        <li>
+                                           
+                                            
+                                            </script>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                        <?php } ?>
-                    </form>
+                            <div class="portfolio-info ">
+                                <h2><b>
+                                    <input type="text" id="txtidusuario"  value="xxxx">
+                                        <input type="text" 
+                                            id="xd" 
+                                            value="<?php echo $value['medico_id'];?>">
+                                        <input type="text"  class="test"
+                                            id="<?php echo $value['especialidad_id'].$sum;?>"
+                                            value="<?php echo $value['especialidad_id'];?>" 
+                                            >
+                                        <input type="text" 
+                                            value="<?php echo $value['medico_nombre'].$sum;?>"
+                                            value="<?php echo $value['medico_nombre'];?>"
+                                            >
+                                        <input type="text" 
+                                            value="<?php echo $value['medico_apepat'].$sum;?>" 
+                                            value="<?php echo $value['medico_apepat'];?>"
+                                            >
+                                        <input type="text" 
+                                            value="<?php echo $value['medico_apemat'].$sum;?>"
+                                            value="<?php echo $value['medico_apemat'];?>"
+                                            >
+                                        <input type="text"  class="test"
+                                            id="<?php echo $value['especialidad_nombre'].$sum;?>"
+                                            value="<?php echo $value['especialidad_nombre'];?>"
+                                            >
+                                        
+                                            <a href="#" class="test btn btn-darkbtn-common" id="<?php echo $value['medico_nombre'].$sum;?>">Click</a>
 
+                                            <script>    
+                                               $(".test").click(function(){
+                                                alert(this.id); 
+                                                });
+                                            </script>
+
+
+
+                                    </b></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+                    <?php
+                                                function accion(){
+                                                    echo "accion";
+                                                }
+                                                function acciondos(){
+                                                    echo 19;
+                                                }
+                                                ?>
                 </div>
+
+
                 <div class="portfolio-pagination">
                     <ul class="pagination">
                         <li><a href="#">left</a></li>
@@ -290,49 +321,48 @@
     <script src="../../Plantilla/dist/js/demo.js"></script>
 
     <script>
-    $(document).ready(function() {
-        listar_Citas();
-
-        $("#modal_registro").on('shown.bs.modal', function() {
-            $("#txt_usu").focus();
-        })
-    });
+        $(document).ready(function() {
+        
+            $("#modal_registro").on('shown.bs.modal', function() {
+                $("#txt_usu").focus();
+            })
+        });
     </script>
     <script>
-    var idioma_espanol = {
-        select: {
-            rows: "%d fila seleccionada"
-        },
-        "sProcessing": "Procesando...",
-        "sLengthMenu": "Mostrar _MENU_ registros",
-        "sZeroRecords": "No se encontraron resultados",
-        "sEmptyTable": "Ning&uacute;n dato disponible en esta tabla",
-        //"sInfo": "Registros del (_START_ al _END_) total de _TOTAL_ registros",
-        "sInfo": "Pacientes del (_START_ al _END_) <b>total de pacientes en cola = _TOTAL_ </b>",
-        //"sInfoEmpty": "Registros del (0 al 0) total de 0 registros",
-        "sInfoEmpty": "Pacientes del (0 al 0) <b>total de 0 registros</b>",
-        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix": "",
-        "sSearch": "Buscar:",
-        "sUrl": "",
-        "sInfoThousands": ",",
-        "sLoadingRecords": "<b>Aun no existen citas por atender</b>",
-        "oPaginate": {
-            "sFirst": "Primero",
-            "sLast": "Último",
-            "sNext": "Siguiente",
-            "sPrevious": "Anterior"
-        },
-        "oAria": {
-            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        var idioma_espanol = {
+            select: {
+                rows: "%d fila seleccionada"
+            },
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ning&uacute;n dato disponible en esta tabla",
+            //"sInfo": "Registros del (_START_ al _END_) total de _TOTAL_ registros",
+            "sInfo": "Pacientes del (_START_ al _END_) <b>total de pacientes en cola = _TOTAL_ </b>",
+            //"sInfoEmpty": "Registros del (0 al 0) total de 0 registros",
+            "sInfoEmpty": "Pacientes del (0 al 0) <b>total de 0 registros</b>",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "<b>Aun no existen citas por atender</b>",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
         }
-    }
 
-    function cargar_contenido(contenedor, contenido) {
-        $("#" + contenedor).load(contenido);
-    }
-    //$.widget.bridge('uibutton', $.ui.button);
+        function cargar_contenido(contenedor, contenido) {
+            $("#" + contenedor).load(contenido);
+        }
+        //$.widget.bridge('uibutton', $.ui.button);
     </script>
 
 
