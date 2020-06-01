@@ -76,7 +76,7 @@ function listar_Citas() {
         "order": [[1, 'asc']],
         "columns": [
             { "defaultContent": "" },
-            { "data": "cita_nroatencion" },
+            { "data": "cita_estatus" },
             { "data": "cita_fregistro" },
             { "data": "paciente_id" },
             { "data": "medico_id" },
@@ -100,7 +100,18 @@ function listar_Citas() {
     tableinsumo.on('draw.dt', function () {
         var PageInfo = $('#tabla_citas_frontend').DataTable().page.info();
         tableinsumo.column(0, { page: 'current' }).nodes().each(function (cell, i) {
-            cell.innerHTML = i + 1 + PageInfo.start;
+            if (i + 1 + PageInfo.start=='1') {
+                cell.innerHTML = "Tu Turno";
+                //cell.innerHTML = i + 1 + PageInfo.start;
+            }
+           else if (i + 1 + PageInfo.start=='2') {
+                cell.innerHTML = "Eres el siguiente";
+                //
+            }
+            else{
+                cell.innerHTML = i + 1 + PageInfo.start;
+            }
+            
         });
     });
 }
@@ -164,36 +175,53 @@ function filterGlobal() {
     ).draw();
 }
 
-function Registrar_Insumo() {
-    var nombre = $("#txt_insumo").val();
-    var stock = $("#txt_stock").val();
-    var status = $("#cbm_estatus").val();
-    if (nombre.length == 0 || stock.length == 0) {
-        return Swal.fire("Mensaje De Advertencia", "Llene los campos vacios", "warning");
+function Registrar_Cita() {
+    var medicoid = $("#txtidusuario").val();
+    var txt_apellido = $("#txtapellido").val();
+    var txt_dni = $("#cbm_dni").val();
+    if (txt_apellido.length == 0 ) {
+        $("#txtapellido").focus();
+        return Swal.fire("Mensaje De Advertencia", "Ingrese Apellido Paterno", "warning");
     }
 
     $.ajax({
-        "url": "../controlador/insumo/controlador_insumo_registro.php",
+        "url": '../../controlador/medico/verificar_paciente.php',
         type: 'POST',
         data: {
-            nombre: nombre,
-            stock: stock,
-            status: status
+            txt_apellido: txt_apellido,
+            txt_dni: txt_dni
         }
     }).done(function (resp) {
         if (resp > 0) {
-            if (resp == 1) {
-                $("#modal_registro").modal('hide');
-                Swal.fire("Mensaje De Confirmacion", "Datos correctamente, Nuevo Insumo Registrado", "success")
-                    .then((value) => {
-                        LimpiarRegistro();
-                        tableinsumo.ajax.reload();
-                    });
-            } else {
-                return Swal.fire("Mensaje De Advertencia", "Lo sentimos, el insumo ya se encuentra en registrada en nuestra base de datos", "warning");
-            }
-        } else {
             Swal.fire("Mensaje De Error", "Lo sentimos, no se pudo completar el registro", "error");
+            
+        } else {
+
+            $.ajax({
+                "url": '../../controlador/medico/controlador_registrar_paciente.php',
+                type: 'POST',
+                data: {
+                    medicoid:medicoid,
+                    txt_apellido: txt_apellido,
+                    txt_dni: txt_dni
+                }
+            }).done(function (resp) {
+                if (resp > 0) {
+                    if (resp == 1) {
+                        
+                        $("#modal_registro").modal('hide');
+                        Swal.fire("Mensaje De Confirmacion", "Datos correctamente, Nuevo Insumo Registrado", "success")
+                            .then((value) => {
+                                LimpiarRegistro();
+                                tableinsumo.ajax.reload();
+                            });
+                    } else {
+                        return Swal.fire("Mensaje De Advertencia", "Lo sentimos, el insumo ya se encuentra en registrada en nuestra base de datos", "warning");
+                    }
+                } else {
+                    Swal.fire("Mensaje De Error", "Lo sentimos, no se pudo completar el registro", "error");
+                }
+            })
         }
     })
 }
@@ -288,7 +316,7 @@ function cerrar_Session() {
                     title: 'Cita cancelado con exito',
                     showConfirmButton: false,
                     timer: 3500,
-                        
+
                   }),
                   window.location = 'index.php'
               
@@ -296,5 +324,26 @@ function cerrar_Session() {
             }
           })
 
+    })
+}
+function AbrirModalRegistro() {
+    $("#modal_registro").modal('show');
+}
+function listar_combo_dni() {
+    $.ajax({
+        "url": "../../controlador/medico/controlador_combo_dni_listar.php",
+        type: 'POST'
+    }).done(function (resp) {
+        var data = JSON.parse(resp);
+        var cadena = "";
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                cadena += "<option value='" + data[i][0] + "'>" + data[i][1] + "</option>";
+            }
+            $("#cbm_dni").html(cadena);
+        } else {
+            cadena += "<option value=''>NO SE ENCONTRARON REGISTROS</option>";
+            $("#cbm_dni").html(cadena);
+        }
     })
 }

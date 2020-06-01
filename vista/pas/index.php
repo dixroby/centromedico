@@ -182,7 +182,9 @@
                     <form action="../../controlador/medico/controlador_crear_session.php" method="post">
                        
                         <?php 
-                    foreach ($listaEspXmed as  $value)  {?>
+                        $sum = 0;
+                    foreach ($listaEspXmed as  $value)  { 
+                        $sum = $sum+1; ?>
                         <div
                             class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos val<?php echo $value['especialidad_id'];?>">
                             <div class="portfolio-wrapper">
@@ -200,18 +202,15 @@
                                 </div>
                                 <div class="portfolio-info ">
                                     <h2><b>
-                                            <input hidden type="text" value="<?php echo $value['medico_id'];?>"
+                                            <input  type="text" value="<?php echo $value['medico_id']." ".$sum;?>"
                                                 name="medico_id">
-                                            <input hidden type="text" value="<?php echo $value['especialidad_id'];?>"
+                                            <input  type="text" value="<?php echo $value['especialidad_id'];?>"
                                                 name="especialidad_id">
-
-                                            <input hidden type="text" value="<?php echo $value['medico_nombre'];?>"
+                                            <input  type="text" value="<?php echo $value['medico_nombre'];?>"
                                                 name="medico_nombre">
-
-                                            <input hidden type="text" value="<?php echo $value['medico_apepat'];?>"
+                                            <input  type="text" value="<?php echo $value['medico_apepat'];?>"
                                                 name="medico_apepat">
-
-                                            <input hidden type="text" value="<?php echo $value['medico_apemat'];?>"
+                                            <input  type="text" value="<?php echo $value['medico_apemat'];?>"
                                                 name="medico_apemat">
 
                                             <input type="text" value="<?php echo $value['especialidad_nombre'];?>" name="especialidad_nombre">
